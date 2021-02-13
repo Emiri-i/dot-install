@@ -2,8 +2,9 @@
 
 console.clear();
 {
-    const year = 2020;
-    const month = 4;//5月
+    const today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth();
 
     function getCalendarHead() {
         const dates = [];
@@ -34,9 +35,11 @@ console.clear();
                 isDisabled: false
             });
         }
-        // console.log(dates);
-        return dates;
+        if (year === today.getFullYear() && month === today.getMonth()) {
+            dates[today.getDate() - 1].isToday = true;
 
+        }
+        return dates;
     }
 
     function getCalendarTail() {
@@ -54,14 +57,80 @@ console.clear();
         return dates;
     }
 
-    function createCalendar() {
+    function clearCalendar() {
+        const tbody = document.querySelector('tbody');
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+    }
+
+    function renderTitle() {
+        const title = `${year}/${String(month + 1).padStart(2, '0')}`
+        document.getElementById('title').textContent = title;
+    }
+
+    function renderWeeks() {
         const dates = [
             ...getCalendarHead(),
-            ...getCalendarBody(),            
+            ...getCalendarBody(),
             ...getCalendarTail()
         ];
-        console.log(dates);
+        const weeks = [];
+        const weekCounts = dates.length / 7;
+        for (let i = 0; i < weekCounts; i++) {
+            weeks.push(dates.splice(0, 7));
+        }
+
+
+        weeks.forEach((week) => {
+            const tr = document.createElement('tr');
+            week.forEach((date) => {
+                const td = document.createElement('td');
+                td.textContent = date.date;
+                if (date.isToday) {
+                    td.classList.add('today');
+                }
+                if (date.isDisabled) {
+                    td.classList.add('disable');
+                }
+                tr.appendChild(td);
+            });
+            document.querySelector('tbody').appendChild(tr);
+        });
     }
+
+    function createCalendar() {
+        clearCalendar();
+        renderTitle();
+        renderWeeks();
+    }
+
+    //前月をクリックしたとき
+    document.getElementById('prev').addEventListener('click', () => {
+        month--;
+        if (month < 0) {
+            year--;
+            month = 11;
+        }
+        createCalendar();
+    });
+
+    //次月をクリックしたとき
+    document.getElementById('next').addEventListener('click', () => {
+        month++;
+        if (month > 11) {
+            year++;
+            month = 0;
+        }
+        createCalendar();
+    });
+
+    //今日をクリックしたとき
+    document.getElementById('today').addEventListener('click', () => {
+        year = today.getFullYear();
+        month = today.getMonth();        
+        createCalendar();
+    });
 
     createCalendar();
 
