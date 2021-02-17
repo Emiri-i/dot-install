@@ -5,7 +5,11 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            name:'taguchi'
+            todos: [
+                'task1',
+                'task2',
+                'task3'
+            ]
         }
     });
 })();
