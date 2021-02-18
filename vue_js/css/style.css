@@ -27,3 +27,12 @@ body {
     cursor: pointer;
     color:#08c;
 }
+
+#app {
+    list-style: none;
+    padding: 0;
+}
+#app li > span.done {
+    text-decoration: line-through;
+    color: #bbb;
+}
