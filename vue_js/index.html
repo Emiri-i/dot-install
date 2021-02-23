@@ -12,25 +12,17 @@
 <body>
 
     <div id="app" class="container">
-        <h1>My Todos</h1>
-        <!-- <ul>
-            <li v-for="(todo,index) in todos">
-                <input type="checkbox" v-model="todo.isDone">
-                <span :class="{done:todo.isDone}">{{ todo.title }}</span>
-                <span @click="deletItem(index)" class="command">[×]</span>
-            </li>
-            <li v-show="!todos.length">Nothing to do, Yay!
-            </li>
-        </ul> -->
-        <ul v-if="todos.length">
-            <li v-for="(todo,index) in todos">
-                <input type="checkbox" v-model="todo.isDone">
-                <!-- <span v-vind:class="{done:todo.isDone}">{{ todo.title }}</span> -->
-                <span :class="{done:todo.isDone}">{{ todo.title }}</span>
-                <span @click="deletItem(index)" class="command">[×]</span>
-            </li>
-        </ul>
+        <h1>
+            <button @click="purge">Purge</button>
+            My Todos
+            <span class="info">( {{ remaining.length }} / {{ todos.length }} )</span>
+        </h1>
         <ul>
+            <li v-for="(todo,index) in todos">
+                <input type="checkbox" v-model="todo.isDone">
+                <span :class="{done:todo.isDone}">{{ todo.title }}</span>
+                <span @click="deletItem(index)" class="command">[×]</span>
+            </li>
             <li v-show="!todos.length">Nothing to do, Yay!
             </li>
         </ul>
