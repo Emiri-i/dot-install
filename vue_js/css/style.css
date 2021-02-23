@@ -28,7 +28,7 @@ body {
     color:#08c;
 }
 
-#app {
+#app ul{
     list-style: none;
     padding: 0;
 }
