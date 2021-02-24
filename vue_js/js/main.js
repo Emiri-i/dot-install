@@ -18,6 +18,19 @@
             }]
             // todos: []
         },
+        watch: {
+            // todos: function() {
+            //     localStorage.setItem('todos',JSON.stringify(this.todos));
+            //     alert('Data saved');
+            // }
+            todos:  {
+                handler: function() {
+                    localStorage.setItem('todos',JSON.stringify(this.todos));
+                    // alert('Data saved');
+                },
+                deep: true
+            }
+        },
         methods: {
             addItem:function() {
                 var item = {
@@ -36,9 +49,6 @@
                 if(!confirm('delete finished?')){
                     return;
                 }
-                // this.todos = this.todos.filter(function(todo) {
-                //     return todo.isDone = false;
-                // });
                 this.todos = this.remaining;
             }
         },
@@ -46,11 +56,7 @@
             remaining: function() {
                 return this.todos.filter(function(todo) {
                         return !todo.isDone;
-                    });
-                // var items = this.todos.filter(function(todo) {
-                //     return todo.isDone = false;
-                // });
-                // return items.length;
+                    });                
             }
         }
     });
