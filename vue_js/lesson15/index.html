@@ -8,10 +8,11 @@
 </head>
 <body>
     <div id="app">
-        <like-component message="Like"></like-Component>
-        <like-component message="Awesome"></like-Component>
-        <like-component message="Great"></like-Component>
-        <like-component></like-Component>
+        <p>Total Likes: {{ total }}</p>
+        <like-component message="Like" @increment="incrementTotal"></like-Component>
+        <like-component message="Awesome" @increment="incrementTotal"></like-Component>
+        <like-component message="Great" @increment="incrementTotal"></like-Component>
+        <like-component @increment="incrementTotal"></like-Component>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="main.js"></script>
