@@ -2,8 +2,17 @@
     'use strict';
 
     var likeComponent = Vue.extend({
-        template:'<button>like</button>'
-        // template:'<div><button>like</button><button>like</button></div>'
+        data: function() {
+            return {
+                count:0
+            }
+        },
+        template:'<button @click="countUp">like {{ count }}</button>',
+        methods: {
+            countUp: function() {
+                this.count ++;
+            }
+        }
     });
 
     var app = new Vue({
